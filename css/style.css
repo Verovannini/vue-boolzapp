@@ -113,6 +113,10 @@
     background-color: #e9ebea;
 }
 
+.active{
+    background-color: #e9ebea;
+}
+
 /* END COLUMN-LEFT */
 
 /* COLUMN-RIGHT */
@@ -133,6 +137,8 @@
     background-image: url(../img/mine.jpg);
     padding: 30px 40px;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .column-right .chat .message{
@@ -148,11 +154,11 @@
     text-align: right;
 }
 
-.column-right .chat .message.received{
+.received{
     background-color: #fff;
 }
-.column-right .chat .message.delivered{
-    float: right;
+.delivered{
+    align-self: flex-end;
     background-color: #d5f9ba;
 }
 

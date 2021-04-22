@@ -6,6 +6,7 @@ var app = new Vue (
     {
         el: '#root',
         data: {
+            activeContact: 0,
             contacts: [
                 {
                     name: 'Michele',
@@ -91,6 +92,9 @@ var app = new Vue (
                     ],
                 },
             ]
+            
+        },
+        methodhs: {
             
         }
     }

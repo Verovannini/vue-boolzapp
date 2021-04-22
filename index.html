@@ -61,7 +61,7 @@
                     <!-- Start Contact List -->
                     <ul class="contacts-list">
                         <!-- Start User Contact -->
-                        <li v-for="contact in contacts" class="avatar">
+                        <li v-for="contact in contacts" class="avatar" >
                             <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">{{ contact.name }}</div>
                         </li>
@@ -78,9 +78,9 @@
                     <div class="user-row">
                         <!-- Start Avatar -->
                         <div class="avatar">
-                            <img src="img/avatar_1.jpg" alt="Avatar User">
+                            <img :src="`img/avatar${contacts[activeContact].avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">
-                                <div>Michele</div>
+                                <div>{{ contacts[activeContact].name }}</div>
                                 <div class="user-access">Ultimo accesso oggi alle</div>
                             </div>
                         </div>
@@ -99,16 +99,9 @@
                     <!-- Start Main Chat -->
                     <div class="chat">
                         <!-- Start Message -->
-                        <div class="message received">
-                            <div class="message-text">Ciao</div>
-                            <div class="message-date">20/02/2020</div>
-                        </div>
-                        <!-- End Message -->
-
-                        <!-- Start Message -->
-                        <div class="message delivered">
-                            <div class="message-text">Ciao! messaggio molto  molto  molto  molto  molto  molto  molto  molto lungo</div>
-                            <div class="message-date">20/02/2020</div>
+                        <div v-for="message in contacts[activeContact].messages" class="message" :class="{ received: message.status == 'received', delivered: message.status == 'sent' }">
+                            <div class="message-text">{{message.text}}</div>
+                            <div class="message-date">{{message.date}}</div>
                         </div>
                         <!-- End Message -->
                     </div>
