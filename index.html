@@ -61,7 +61,7 @@
                     <!-- Start Contact List -->
                     <ul class="contacts-list">
                         <!-- Start User Contact -->
-                        <li v-for="contact in contacts" class="avatar" >
+                        <li v-for="(contact,index) in contacts" @click="showChat(index)" class="avatar" :class="{ active: activeContact == index }">
                             <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">{{ contact.name }}</div>
                         </li>

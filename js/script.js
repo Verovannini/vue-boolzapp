@@ -94,8 +94,10 @@ var app = new Vue (
             ]
             
         },
-        methodhs: {
-            
+        methods: {
+            showChat(index) {
+                this.activeContact = index;
+            }
         }
     }
 );
