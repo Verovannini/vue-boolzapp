@@ -61,23 +61,9 @@
                     <!-- Start Contact List -->
                     <ul class="contacts-list">
                         <!-- Start User Contact -->
-                        <li class="avatar">
-                            <img src="img/avatar_io.jpg" alt="Avatar User">
-                            <div class="user-name">Nome Utente</div>
-                        </li>
-                        <!-- End User Contact -->
-
-                        <!-- Start User Contact -->
-                        <li class="avatar">
-                            <img src="img/avatar_io.jpg" alt="Avatar User">
-                            <div class="user-name">Nome Utente</div>
-                        </li>
-                        <!-- End User Contact -->
-
-                        <!-- Start User Contact -->
-                        <li class="avatar">
-                            <img src="img/avatar_io.jpg" alt="Avatar User">
-                            <div class="user-name">Nome Utente</div>
+                        <li v-for="contact in contacts" class="avatar">
+                            <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
+                            <div class="user-name">{{ contact.name }}</div>
                         </li>
                         <!-- End User Contact -->
                     </ul>
