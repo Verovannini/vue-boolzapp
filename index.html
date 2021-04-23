@@ -52,8 +52,8 @@
                     <!-- Start Search Contacts -->
                     <div class="search-contacts">
                         <div class="search-input">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Cerca o inizia una nuova chat">
+                            <label for="filter-input"><i aria-hidden="true" class="fas fa-search"></i></label>
+                            <input id="filter-input" type="text" placeholder="Cerca o inizia una nuova chat">
                         </div>
                     </div>
                     <!-- End Search Contacts -->
@@ -99,7 +99,7 @@
                     <!-- Start Main Chat -->
                     <div class="chat">
                         <!-- Start Message -->
-                        <div v-for="message in contacts[activeContact].messages" class="message" :class="{ received: message.status == 'received', delivered: message.status == 'sent' }">
+                        <div v-for="message in contacts[activeContact].messages" class="message" :class="message.status">
                             <div class="message-text">{{message.text}}</div>
                             <div class="message-date">{{message.date}}</div>
                         </div>
