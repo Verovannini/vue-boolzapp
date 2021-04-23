@@ -53,7 +53,7 @@
                     <div class="search-contacts">
                         <div class="search-input">
                             <label for="filter-input"><i aria-hidden="true" class="fas fa-search"></i></label>
-                            <input id="filter-input" type="text" placeholder="Cerca o inizia una nuova chat">
+                            <input @keyup="filterContacts" v-model="filterInput" id="filter-input" type="text" placeholder="Cerca o inizia una nuova chat">
                         </div>
                     </div>
                     <!-- End Search Contacts -->
@@ -61,7 +61,7 @@
                     <!-- Start Contact List -->
                     <ul class="contacts-list">
                         <!-- Start User Contact -->
-                        <li v-for="(contact,index) in contacts" @click="showChat(index)" class="avatar" :class="{ active: activeContact == index }">
+                        <li v-for="(contact,index) in contacts" @click="showChat(index)" class="avatar" :class="{ active: activeContact == index }" v-show="contact.visible == true">
                             <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">{{ contact.name }}</div>
                         </li>

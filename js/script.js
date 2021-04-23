@@ -3,13 +3,21 @@
 //    Click sul contatto mostra la conversazione del contatto cliccato
 // 3. Aggiunta di un messaggio: l’utente scrive un testo nella parte bassa e digitando “enter” il testo viene aggiunto al thread sopra, come messaggio verde
 //    Risposta dall’interlocutore: ad ogni inserimento di un messaggio, l’utente riceverà un “ok” come risposta, che apparirà dopo 1 secondo.
+// 4. Ricerca utenti: scrivendo qualcosa nell’input a sinistra, vengono visualizzati solo i contatti il cui nome contiene le lettere inserite
 
 var app = new Vue (
     {
         el: '#root',
         data: {
+            // V-model per input search
+            filterInput: '',
+
+            // V-model per input scrivi nuovo messaggio
             newMessage: '',
+
+            // Contatto attivo
             activeContact: 0,
+
             contacts: [
                 {
                     name: 'Michele',
@@ -133,6 +141,18 @@ var app = new Vue (
                     } ,1000 );
                 }
             },
+
+            // Funzione che filtra i contatti
+            filterContacts() {
+                // Itero ogni contatto e confronto il nome con le lettere inserite dall'utente, se la lettera è contenuta nel nome il nome verrà mostrato altrimenti no
+                this.contacts.forEach(element => {
+                    if( element.name.toLowerCase().includes(this.filterInput.toLowerCase()) ) {
+                        element.visible = true;
+                    } else {
+                        element.visible = false;
+                    }
+                });
+            }
         }
     }
 );
