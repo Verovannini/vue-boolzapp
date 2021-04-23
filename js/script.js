@@ -105,19 +105,34 @@ var app = new Vue (
 
             // Funzione che crea un nuovo oggetto messaggio e lo pusha nell'array messages corrispondente all'utente attivo poi svuota la input
             sendMessage () {
-                // Creo un nuovo oggetto con date corrente e text uguale al messaggio inserito dall'utente
-                let newMessageObj = {
-                    date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
-                    text: this.newMessage,
-                    status: 'sent'
-                };
+                if ( this.newMessage != '' ) {
+                    // Creo un nuovo oggetto con date corrente e text uguale al messaggio inserito dall'utente
+                    let newMessageObj = {
+                        date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                        text: this.newMessage,
+                        status: 'sent'
+                    };
 
-                // Pusho l'oggetto nell'array di messaggi dell'utente corrente
-                this.contacts[this.activeContact].messages.push(newMessageObj);
-                
-                // Svuoto la input
-                this.newMessage = '';
-            }
+                    // Pusho l'oggetto nell'array di messaggi dell'utente corrente
+                    this.contacts[this.activeContact].messages.push(newMessageObj);
+                    
+                    // Svuoto la input
+                    this.newMessage = '';
+
+                    // Funzione setTimeout che dopo 1 secondo manda un messaggio di risposta
+                    setTimeout( () => {
+                        // Creo un nuovo oggetto
+                        let newUserMessageObj = {
+                            date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                            text: 'Ok',
+                            status: 'received'
+                        };
+                        
+                        // Pusho l'oggetto nell'array dei messaggi dell'utente attivo
+                        this.contacts[this.activeContact].messages.push(newUserMessageObj);
+                    } ,1000 );
+                }
+            },
         }
     }
 );
