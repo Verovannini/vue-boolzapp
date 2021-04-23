@@ -8,6 +8,7 @@ var app = new Vue (
     {
         el: '#root',
         data: {
+            newMessage: '',
             activeContact: 0,
             contacts: [
                 {
@@ -100,6 +101,22 @@ var app = new Vue (
             // Funzione che mostra la conversazione del contatto cliccato
             showChat(index) {
                 this.activeContact = index;
+            },
+
+            // Funzione che crea un nuovo oggetto messaggio e lo pusha nell'array messages corrispondente all'utente attivo poi svuota la input
+            sendMessage () {
+                // Creo un nuovo oggetto con date corrente e text uguale al messaggio inserito dall'utente
+                let newMessageObj = {
+                    date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                    text: this.newMessage,
+                    status: 'sent'
+                };
+
+                // Pusho l'oggetto nell'array di messaggi dell'utente corrente
+                this.contacts[this.activeContact].messages.push(newMessageObj);
+                
+                // Svuoto la input
+                this.newMessage = '';
             }
         }
     }

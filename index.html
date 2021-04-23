@@ -110,7 +110,11 @@
                     <!-- Start Message Bar -->
                     <div class="message-bar">
                         <div><i class="far fa-smile"></i></div>
-                        <div class="message-input"><input type="text" placeholder="Scrivi un messaggio"></div>
+
+                        <div class="message-input">
+                            <input @keyup.enter="sendMessage" v-model="newMessage" type="text" placeholder="Scrivi un messaggio">
+                        </div>
+
                         <div><i class="fas fa-microphone"></i></div> 
                     </div>
                     <!-- End Message Bar -->
@@ -121,7 +125,7 @@
         </div>
     </div>
 
-
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
