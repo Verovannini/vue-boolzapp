@@ -64,12 +64,16 @@
                         <li 
                             v-for="(contact,index) in contacts" 
                             @click="showChat(index)" 
-                            class="avatar" 
+                            class="avatar"
                             :class="{ active: activeContact == index }" 
                             v-show="contact.visible == true"
                         >
-                            <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
+                        <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
+                        <div class="user-info">
                             <div class="user-name">{{ contact.name }}</div>
+                            <div class="last-message">{{ getLastMessage(index) }}</div>
+                        </div>
+                        <div class="last-access">{{ getLastAccess(index) }}</div>
                         </li>
                         <!-- End User Contact -->
                     </ul>
@@ -87,7 +91,8 @@
                             <img :src="`img/avatar${contacts[activeContact].avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">
                                 <div>{{ contacts[activeContact].name }}</div>
-                                <div class="user-access">Ultimo accesso oggi alle </div>
+                                <div v-if="contacts[activeContact].messages.length > 0" class="user-access">Ultimo accesso oggi alle {{ getLastAccess(activeContact) }}</div>
+                                <div v-else class="user-access">Ultimo accesso non disponibile</div>
                             </div>
                         </div>
                         <!-- End Avatar -->

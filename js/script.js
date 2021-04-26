@@ -176,6 +176,25 @@ var app = new Vue (
             deleteMessage(indexMsg) {
                 this.contacts[this.activeContact].messages.splice(indexMsg, 1);
                 this.activeMessage = false;
+            },
+
+            // Funzione che ritorna l'ultimo accesso dell'utente correntemente attivo
+            getLastAccess(contactIndex) {
+                const activeContactMessages = this.contacts[contactIndex].messages;
+                const lastAccess = activeContactMessages[activeContactMessages.length - 1].date;
+                
+                return lastAccess;
+            },
+            
+            getLastMessage(contactIndex) {
+                const lastMessage = this.contacts[contactIndex].messages[this.contacts[contactIndex].messages.length - 1].text;
+                let lastMessageShort = lastMessage.slice(0, 30);
+
+                if ( lastMessageShort.length >= 30 ) {
+                    lastMessageShort += '...';
+                }
+
+                return lastMessageShort;
             }
         }
     }
