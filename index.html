@@ -61,7 +61,13 @@
                     <!-- Start Contact List -->
                     <ul class="contacts-list">
                         <!-- Start User Contact -->
-                        <li v-for="(contact,index) in contacts" @click="showChat(index)" class="avatar" :class="{ active: activeContact == index }" v-show="contact.visible == true">
+                        <li 
+                            v-for="(contact,index) in contacts" 
+                            @click="showChat(index)" 
+                            class="avatar" 
+                            :class="{ active: activeContact == index }" 
+                            v-show="contact.visible == true"
+                        >
                             <img :src="`img/avatar${contact.avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">{{ contact.name }}</div>
                         </li>
@@ -81,7 +87,7 @@
                             <img :src="`img/avatar${contacts[activeContact].avatar}.jpg`" alt="Avatar User">
                             <div class="user-name">
                                 <div>{{ contacts[activeContact].name }}</div>
-                                <div class="user-access">Ultimo accesso oggi alle</div>
+                                <div class="user-access">Ultimo accesso oggi alle </div>
                             </div>
                         </div>
                         <!-- End Avatar -->
@@ -99,9 +105,18 @@
                     <!-- Start Main Chat -->
                     <div class="chat">
                         <!-- Start Message -->
-                        <div v-for="message in contacts[activeContact].messages" class="message" :class="message.status">
+                        <div v-for="(message,index) in contacts[activeContact].messages" class="message" :class="message.status">
                             <div class="message-text">{{message.text}}</div>
                             <div class="message-date">{{message.date}}</div>
+
+                            <div class="option-chevron" @click="toggleOptionMenu(index)"><i class="fas fa-chevron-down"></i></div>
+
+                            <div class="option-menu" v-if="index === activeMessage">
+                                <ul>
+                                    <li>Message Info</li>
+                                    <li @click="deleteMessage(index)">Delete message</li>
+                                </ul>
+                            </div>
                         </div>
                         <!-- End Message -->
                     </div>

@@ -4,19 +4,24 @@
 // 3. Aggiunta di un messaggio: l’utente scrive un testo nella parte bassa e digitando “enter” il testo viene aggiunto al thread sopra, come messaggio verde
 //    Risposta dall’interlocutore: ad ogni inserimento di un messaggio, l’utente riceverà un “ok” come risposta, che apparirà dopo 1 secondo.
 // 4. Ricerca utenti: scrivendo qualcosa nell’input a sinistra, vengono visualizzati solo i contatti il cui nome contiene le lettere inserite
+// 5. Cancella messaggio: cliccando sul messaggio appare un menu a tendina che permette di cancellare il messaggio selezionato
+//    Visualizzazione ora e ultimo messaggio inviato/ricevuto nella lista dei contatti
 
 var app = new Vue (
     {
         el: '#root',
         data: {
-            // V-model per input search
-            filterInput: '',
+            // Contatto attivo, numero che rappresenta l'indice del contatto attivo
+            activeContact: 0,
 
             // V-model per input scrivi nuovo messaggio
             newMessage: '',
 
-            // Contatto attivo
-            activeContact: 0,
+            // V-model per input search
+            filterInput: '',
+
+            // Indica l'indice del messaggio attivo, di default è false perchè nessun messaggio è attivo
+            activeMessage: false,
 
             contacts: [
                 {
@@ -109,6 +114,7 @@ var app = new Vue (
             // Funzione che mostra la conversazione del contatto cliccato
             showChat(index) {
                 this.activeContact = index;
+                this.activeMessage = false;
             },
 
             // Funzione che crea un nuovo oggetto messaggio e lo pusha nell'array messages corrispondente all'utente attivo poi svuota la input
@@ -127,6 +133,9 @@ var app = new Vue (
                     // Svuoto la input
                     this.newMessage = '';
 
+                    // Creo una variabile e ci salvo il contatto attuale da inserire poi nel setTimeout
+                    const NewActiveContact = this.activeContact;
+
                     // Funzione setTimeout che dopo 1 secondo manda un messaggio di risposta
                     setTimeout( () => {
                         // Creo un nuovo oggetto
@@ -137,7 +146,7 @@ var app = new Vue (
                         };
                         
                         // Pusho l'oggetto nell'array dei messaggi dell'utente attivo
-                        this.contacts[this.activeContact].messages.push(newUserMessageObj);
+                        this.contacts[NewActiveContact].messages.push(newUserMessageObj);
                     } ,1000 );
                 }
             },
@@ -145,13 +154,28 @@ var app = new Vue (
             // Funzione che filtra i contatti
             filterContacts() {
                 // Itero ogni contatto e confronto il nome con le lettere inserite dall'utente, se la lettera è contenuta nel nome il nome verrà mostrato altrimenti no
-                this.contacts.forEach(element => {
+                this.contacts.forEach((element) => {
                     if( element.name.toLowerCase().includes(this.filterInput.toLowerCase()) ) {
                         element.visible = true;
                     } else {
                         element.visible = false;
                     }
                 });
+            },
+
+            // Mostra o nasconde l'option menu per ogni messaggio
+            toggleOptionMenu(indexMsg) {
+                if ( this.activeMessage === false ) {
+                    this.activeMessage = indexMsg;
+                } else {
+                    this.activeMessage = false;
+                }
+            },
+
+            // Funzione che elimina il messaggio selezionato da i messaggi dell'activeContact
+            deleteMessage(indexMsg) {
+                this.contacts[this.activeContact].messages.splice(indexMsg, 1);
+                this.activeMessage = false;
             }
         }
     }
